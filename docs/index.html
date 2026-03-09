@@ -1,9 +1,911 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>House of Bijou</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House of Bijou — Building Freedom Through Technology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d946ef;
+            --primary-dark: #a21caf;
+            --accent: #06b6d4;
+            --dark-bg: #0f0f0f;
+            --light-bg: #fafafa;
+            --text-dark: #1a1a1a;
+            --text-light: #f5f5f5;
+            --border: #e5e5e5;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            max-width: 65ch;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1f1f2e 50%, #2d1b3d 100%);
+            color: var(--text-light);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(217, 70, 239, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 25s ease-in-out infinite 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2rem;
+            max-width: 70ch;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(217, 70, 239, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--accent);
+            color: var(--text-dark);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== CONTAINER & LAYOUT ===== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            padding: 6rem 2rem;
+        }
+
+        /* ===== THE PROBLEM SECTION ===== */
+        .problem-section {
+            background: var(--light-bg);
+        }
+
+        .story-quote {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: #fff3e0;
+            border-left: 5px solid var(--warning);
+            border-radius: 0.5rem;
+            font-size: 1.2rem;
+            font-style: italic;
+            line-height: 1.8;
+            color: #6b4423;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .story-context {
+            background: #f3e8ff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+            border-left: 5px solid var(--primary);
+        }
+
+        /* ===== RESPONDENTS SECTION ===== */
+        .respondents {
+            background: white;
+        }
+
+        .respondent-card {
+            background: linear-gradient(135deg, #faf5ff 0%, #f0f9ff 100%);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .respondent-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            transform: translateY(-5px);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .respondent-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .pain-point {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .pain-point strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== SOLUTION SECTION ===== */
+        .solution-section {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+            color: var(--text-light);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== TECH STACK SECTION ===== */
+        .tech-section {
+            background: var(--light-bg);
+        }
+
+        .tech-block {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .tech-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-item p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* ===== ECONOMIC EMPOWERMENT SECTION ===== */
+        .economy-section {
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+        }
+
+        .tier-card {
+            background: white;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            border-left: 5px solid var(--success);
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .tier-card:hover {
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+            transform: translateX(10px);
+        }
+
+        .tier-number {
+            background: var(--success);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .tier-content h4 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1f1f2e 50%, #2d1b3d 100%);
+            color: var(--text-light);
+            text-align: center;
+            padding: 5rem 2rem;
+            border-radius: 1rem;
+        }
+
+        .cta-section h2 {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            margin: 0 auto 2rem;
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            max-width: none;
+            margin: 0.5rem auto;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* ===== ICON STYLING ===== */
+        i {
+            display: inline-block;
+            margin-right: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .feature-icon i {
+            font-size: 3rem;
+            color: var(--accent);
+            display: block;
+            margin-right: 0;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card:hover .feature-icon i {
+            color: var(--primary);
+            transform: scale(1.1);
+            transition: all 0.3s ease;
+        }
+
+        .pain-point i {
+            color: var(--accent);
+            margin-right: 0.75rem;
+        }
+
+        .story-context i {
+            color: var(--warning);
+            margin-right: 0.75rem;
+        }
+
+        .tier-card i {
+            margin-right: 0.75rem;
+        }
+
+        .tier-card h4 i {
+            color: var(--success);
+        }
+
+        .cta-button i {
+            margin-right: 0.5rem;
+        }
+
+        .social-links i {
+            margin-right: 0.5rem;
+        }
+
+        /* ===== RESPONSIVE ICONS ===== */
+        @media (max-width: 768px) {
+            .feature-icon i {
+                font-size: 2.5rem;
+            }
+
+            i {
+                font-size: 0.95em;
+            }
+        }
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 3rem 1.5rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tier-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .respondent-card {
+                padding: 1.5rem;
+            }
+
+            .story-quote {
+                font-size: 1rem;
+                padding: 1.5rem;
+            }
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== LINK STYLING ===== */
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>House of Bijou</h1>
-    <p>Building Freedom Through Technology landing page</p>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Building Freedom Through Technology</h1>
+        <p class="hero-subtitle">House of Bijou creates autonomous digital infrastructure for black African queer females, trans and gender-queer folks, and survivors—enabling safety, economic empowerment, and authentic community without surveillance.</p>
+        <a href="#problem" class="cta-button">See The Problem</a>
+        <a href="#cta" class="cta-button secondary">Support Our Work</a>
+    </div>
+</section>
+
+<!-- ===== THE PROBLEM ===== -->
+<section id="problem" class="problem-section">
+    <div class="container">
+        <h2>Why This Matters Now</h2>
+        <p>In Kenya and East Africa, black African queer females, trans and gender-queer folks, and survivors of sexual and gender-based violence face intersecting crises:</p>
+
+        <div class="story-context">
+            <strong><i class="fas fa-search"></i> Digital Tracking & Control</strong>
+            <p style="margin-bottom: 0;">Ex-partners use mobile network location services to monitor movements for months. Family members snoop on phones to control communication and work. Screenshots and leaked data are weaponized for blackmail and outing.</p>
+        </div>
+
+        <div class="story-context">
+            <strong><i class="fas fa-building"></i> Banking Exclusion</strong>
+            <p style="margin-bottom: 0;">M-Pesa and bank accounts freeze when ID names don't match gender expression. Trans and non-binary folks are denied access to formal financial services. Sex workers and informal income earners are marked as "suspicious activity."</p>
+        </div>
+
+        <div class="story-context">
+            <strong><i class="fas fa-gavel"></i> Criminalization & Custody Threats</strong>
+            <p style="margin-bottom: 0;">Sexuality, gender identity, and survival work are criminalized. Family members file custody cases to separate queer parents from children. Police involvement looms if identities are exposed.</p>
+        </div>
+
+        <div class="story-context">
+            <strong><i class="fas fa-ban"></i> Erasure & Inauthenticity</strong>
+            <p style="margin-bottom: 0;">Existing platforms require "code-switching"—adopting non-authentic personas for safety. There are almost no digital spaces where queer African women can be fully seen, heard, held, and authentic.</p>
+        </div>
+
+        <p style="margin-top: 3rem;"><em>These are not hypothetical problems. They are the daily reality for our community.</em></p>
+    </div>
+</section>
+
+<!-- ===== REAL VOICES ===== -->
+<section id="respondents" class="respondents">
+    <div class="container">
+        <h2>Real Voices, Real Needs</h2>
+        <p>We asked community members: <strong>What would make a digital tool actually useful for your safety and survival?</strong> Here's what we heard.</p>
+
+        <div class="respondent-card">
+            <div class="respondent-title"><i class="fas fa-heart"></i> Survivor of Digital Abuse & Economic Control</div>
+            <div class="story-quote">
+                "My ex used Safaricom track. To track all my conversations, and moves for a year."
+            </div>
+            <div class="story-quote">
+                "My money was frozen because they didn't believe I was the authorized person to handle the account... I had to use my sister's name to get treatment."
+            </div>
+
+            <h4 style="margin-top: 2rem; color: var(--text-dark);">Her Core Needs:</h4>
+            <div class="pain-point">
+                <strong><i class="fas fa-shield-alt"></i> Stealth/Disguise</strong>
+                "Very important" to hide the app if phone is suddenly checked by an abuser or family member
+            </div>
+            <div class="pain-point">
+                <strong><i class="fas fa-wallet"></i> Account Control</strong>
+                Low-trace way to send and receive money without M-Pesa freezes or identity verification
+            </div>
+            <div class="pain-point">
+                <strong><i class="fas fa-accessible-icon"></i> Accessibility First</strong>
+                Explicit request to include safety for people with disabilities from day one
+            </div>
+            <div class="pain-point">
+                <strong><i class="fas fa-lock"></i> Traceless Support</strong>
+                Safe space for "conversations on strategies of resistance, safety tips, money trails"
+            </div>
+        </div>
+
+        <div class="respondent-card" style="border-top: 5px solid var(--primary);">
+            <div class="respondent-title"><i class="fas fa-transgender"></i> Black African Queer Female, Trans/Gender-Queer, Criminalized Work</div>
+            <div class="story-quote">
+                "Names on legal identification documents do not affirm my gender identity and expression. It is the story of my life."
+            </div>
+            <div class="story-quote">
+                "My ex partner is out to erase me and my kind. He is filing a custody case on basis of my sexuality and gender expression."
+            </div>
+            <div class="story-quote">
+                "We need digital apps that can enable us to mingle and trade authentically and with confidence that comes with knowing that we are not partaking in our own erasure."
+            </div>
+
+            <h4 style="margin-top: 2rem; color: var(--text-dark);">Her Core Needs:</h4>
+            <div class="pain-point">
+                <strong><i class="fas fa-map-marker-alt"></i> Location Privacy</strong>
+                Keep location secret. Mutual 3-person check-ins so peers can protect each other without central surveillance
+            </div>
+            <div class="pain-point">
+                <strong><i class="fas fa-exclamation-circle"></i> Panic Response</strong>
+                Silent panic button that alerts trusted network if attacked, without leaving traces
+            </div>
+            <div class="pain-point">
+                <strong><i class="fas fa-coins"></i> Hard-to-Freeze Income</strong>
+                USSD-based transfers for sex work income that can't be traced by state/family surveillance
+            </div>
+            <div class="pain-point">
+                <strong><i class="fas fa-rainbow"></i> Authentic Space</strong>
+                First time being somewhere you don't have to code-switch. Community that understands queer African reality.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== THE SOLUTION ===== -->
+<section class="solution-section">
+    <div class="container">
+        <h2>The House of Bijou Platform</h2>
+        <p style="color: rgba(255, 255, 255, 0.9);">A stealth-by-design app that masquerades as a benign utility while providing layered safety, community, and economic tools.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-calculator"></i></div>
+                <h4>Stealth Mode</h4>
+                <p>Launches as a calculator, weather app, or game. Secret gesture/PIN reveals real community dashboard. If your phone is checked, no one knows what's inside.</p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <h4>Panic Alert</h4>
+                <p>One shake, gesture, or button press silently alerts 3–5 trusted contacts with your location. Community emergency responders mobilize in minutes.</p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-location-dot"></i></div>
+                <h4>Mutual Check-Ins</h4>
+                <p>3-person tracking system. You keep tabs on peers when moving around, they keep tabs on you. No central surveillance. Pure peer protection.</p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                <h4>Encrypted Chat</h4>
+                <p>End-to-end encrypted messages. Delete-on-timer. No server logs. Discuss safety, resistance strategies, chosen family—with zero traces.</p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-money-bill-wave"></i></div>
+                <h4>Low-Trace Transfers</h4>
+                <p>Send and receive money peer-to-peer without a bank account. Works on feature phones (USSD). Encrypted ledger. Hard to freeze, hard to trace.</p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+                <h4>Mutual Aid</h4>
+                <p>Transparent community resource pooling. Need emergency funds? Post a request. Community responds within 24 hours. Radical solidarity, recorded trust.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TECH STACK (Simple Explanation) ===== -->
+<section class="tech-section">
+    <div class="container">
+        <h2>Built Right, Built Differently</h2>
+        <p>House of Bijou runs on a fully open-source, feminist-friendly tech stack designed for accessibility, privacy, and team velocity.</p>
+
+        <div class="tech-block">
+            <div class="tech-item">
+                <h4><i class="fas fa-rocket"></i> Rails + PostgreSQL</h4>
+                <p><strong>Why:</strong> Fast iteration, built-in encryption, real-time capability. One developer can ship features in days, not months.</p>
+            </div>
+
+            <div class="tech-item">
+                <h4><i class="fas fa-palette"></i> Hotwire + Tailwind</h4>
+                <p><strong>Why:</strong> Low bandwidth, accessible, works on slow connections. 70% less data than React.</p>
+            </div>
+
+            <div class="tech-item">
+                <h4><i class="fas fa-mobile-alt"></i> Turbo Native</h4>
+                <p><strong>Why:</strong> One Rails app = web + Android + iOS. Instant updates, no App Store delays. Security fixes deploy in minutes.</p>
+            </div>
+
+            <div class="tech-item">
+                <h4><i class="fas fa-phone-alt"></i> USSD + SMS</h4>
+                <p><strong>Why:</strong> Works on any phone, any connectivity. Feature phone users, offline users, all included.</p>
+            </div>
+
+            <div class="tech-item">
+                <h4><i class="fas fa-shield-alt"></i> AES-256 + Signal Protocol</h4>
+                <p><strong>Why:</strong> Everything sensitive encrypted. No cloud logging. Even if servers are hacked, user data stays safe.</p>
+            </div>
+
+            <div class="tech-item">
+                <h4><i class="fas fa-database"></i> Local-First</h4>
+                <p><strong>Why:</strong> All sensitive data stays on your device. Synced to server only if you want. Maximum control.</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 3rem; font-style: italic;">Cost to run: $50–100/month. Scales to 50,000+ users without significant infrastructure increase.</p>
+    </div>
+</section>
+
+<!-- ===== ECONOMIC EMPOWERMENT ===== -->
+<section class="economy-section">
+    <div class="container">
+        <h2>Economic Freedom Is the Foundation</h2>
+        <p>Safety without economic independence is incomplete. House of Bijou is designed to build economic power at every stage.</p>
+
+        <div class="tier-card">
+            <div class="tier-number">1</div>
+            <div class="tier-content">
+                <h4><i class="fas fa-first-aid"></i> Emergency Survival</h4>
+                <p>Community panic fund (emergency loans, 0% interest). Rapid mutual aid (24-hour mobilization). Goal: Survive immediate crisis without exploitation.</p>
+            </div>
+        </div>
+
+        <div class="tier-card">
+            <div class="tier-number">2</div>
+            <div class="tier-content">
+                <h4><i class="fas fa-briefcase"></i> Sustainable Income</h4>
+                <p>Low-trace peer transfers. Transparent mutual aid ledger (builds community credit history). Survival income resources (sex work, gig work, crafts—safely).</p>
+            </div>
+        </div>
+
+        <div class="tier-card">
+            <div class="tier-number">3</div>
+            <div class="tier-content">
+                <h4><i class="fas fa-star"></i> Economic Autonomy</h4>
+                <p>App ledger as proof of "income" for microloans. Financial literacy workshops. Blockchain wallet (Year 2) for censorship-resistant funds.</p>
+            </div>
+        </div>
+
+        <div class="tier-card">
+            <div class="tier-number">4</div>
+            <div class="tier-content">
+                <h4><i class="fas fa-users"></i> Collective Power</h4>
+                <p>Track aggregate resource flows for movement-building. Policy advocacy ("We moved X million KES this year"). Build cooperative/social enterprise from community fund.</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 3rem;"><strong>The Revenue Model Aligns With Community:</strong> 1–2% peer transfer fee funds hosting + USSD + moderation. Community wealth-building, not extraction.</p>
+    </div>
+</section>
+
+<!-- ===== ROADMAP ===== -->
+<section style="background: white; padding: 4rem 2rem;">
+    <div class="container">
+        <h2>Our Path Forward</h2>
+
+        <div style="margin: 3rem 0;">
+            <h3 style="color: var(--primary); margin-bottom: 1.5rem;"><i class="fas fa-tools"></i> Phase 1: MVP (Months 1–4)</h3>
+            <p><strong>What:</strong> Stealth mode, panic button, encrypted local storage, values-based onboarding, basic encrypted chat</p>
+            <p><strong>Who:</strong> 5–10 community members (invite-only beta)</p>
+            <p><strong>Budget:</strong> $30k development, $6k infrastructure, $8k security audit, $18k community coordination</p>
+        </div>
+
+        <div style="margin: 3rem 0; padding: 2rem; background: #f9fafb; border-radius: 0.5rem; border-left: 4px solid var(--accent);">
+            <h3 style="color: var(--accent); margin-bottom: 1.5rem;"><i class="fas fa-mobile-alt"></i> Phase 2: Mobile & Scale (Months 5–8)</h3>
+            <p><strong>What:</strong> Turbo Native Android app, biometric unlock, location privacy features, money tools beta, USSD integration</p>
+            <p><strong>Who:</strong> 50–100 active users, 3–5 community partnerships</p>
+            <p><strong>Funding:</strong> 60% from grants, 40% from early transfer fees + ally subscriptions</p>
+        </div>
+
+        <div style="margin: 3rem 0;">
+            <h3 style="color: var(--primary); margin-bottom: 1.5rem;"><i class="fas fa-rocket"></i> Phase 3: Ecosystem & Sustainability (Months 9–12)</h3>
+            <p><strong>What:</strong> Blockchain integration (stablecoin wallet), chosen family narrative features, accessibility audit, community governance structure</p>
+            <p><strong>Who:</strong> 100–500 active users, sustainable funding model active</p>
+            <p><strong>Goal:</strong> 80%+ self-funded by year-end (grants + fees)</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section id="cta" class="cta-section">
+    <div class="container">
+        <h2>Help Us Build This</h2>
+        <p>House of Bijou needs $70,000 in Year 1 to build an MVP that changes lives.</p>
+        <p><strong>We're looking for partners who believe in:</strong></p>
+        <p style="margin: 2rem auto; font-size: 1rem; color: rgba(255, 255, 255, 0.85);">
+            <i class="fas fa-handshake"></i> Community leadership (not tokenism)<br>
+            <i class="fas fa-bolt"></i> Economic empowerment as the core metric<br>
+            <i class="fas fa-lock"></i> Privacy and security, not just features<br>
+            <i class="fas fa-heart"></i> Authentic spaces for black African queer females<br>
+            <i class="fas fa-universal-access"></i> Accessibility from day one, not an afterthought
+        </p>
+
+        <div style="margin: 3rem 0;">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+                <strong>Funding is available from:</strong><br>
+                <span style="font-size: 0.95rem; opacity: 0.9;">Digital rights funders (Ford, Mozilla, Omidyar) • LGBTQ+ rights organizations • Feminist tech funds • GBV survivor support organizations</span>
+            </p>
+        </div>
+
+        <div>
+            <a href="mailto:support@houseofbijou.org" class="cta-button"><i class="fas fa-envelope"></i> Partner With Us</a>
+            <a href="https://github.com/houseofbijou" class="cta-button secondary"><i class="fab fa-github"></i> See Our Code</a>
+        </div>
+
+        <p style="margin-top: 3rem; font-size: 0.95rem; opacity: 0.8;">
+            House of Bijou Community Centre is based in Kenya and led by black African queer females and trans/gender-queer folks. We build with the community, not for them.
+        </p>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <p><strong>House of Bijou Community Centre</strong></p>
+    <p>Building autonomous digital infrastructure for safety, healing, chosen family, and economic empowerment</p>
+    <div class="social-links">
+        <a href="https://twitter.com/houseofbijou"><i class="fab fa-twitter"></i> Twitter</a>
+        <a href="https://instagram.com/houseofbijou"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="https://github.com/houseofbijou"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+    <p style="margin-top: 2rem; font-size: 0.85rem; opacity: 0.7;">© 2026 House of Bijou Community Centre. All rights reserved.</p>
+</footer>
+
+<script>
+    // Scroll reveal animation
+    const reveals = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    reveals.forEach((el) => observer.observe(el));
+
+    // Smooth scroll for CTA buttons
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
